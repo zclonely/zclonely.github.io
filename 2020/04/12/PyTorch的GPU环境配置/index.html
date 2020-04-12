@@ -20,15 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zclonely">
-<meta property="og:url" content="http://yoursite.com/archives/2020/04/index.html">
+  <meta name="description" content="介绍Win10下PyTorch的CUDA，cuDNN环境配置流程，方便以后使用，从配置Python开始到PyTorch环境配置，看了这篇再也不用去网上搜索其他的了！ Yeah~~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Win10下PyTorch的GPU环境配置">
+<meta property="og:url" content="http://yoursite.com/2020/04/12/PyTorch%E7%9A%84GPU%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="zclonely">
+<meta property="og:description" content="介绍Win10下PyTorch的CUDA，cuDNN环境配置流程，方便以后使用，从配置Python开始到PyTorch环境配置，看了这篇再也不用去网上搜索其他的了！ Yeah~~">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/04/12/PyTorch%E7%9A%84GPU%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/fig1.png">
+<meta property="article:published_time" content="2020-04-12T15:41:54.000Z">
+<meta property="article:modified_time" content="2020-04-12T16:44:52.911Z">
 <meta property="article:author" content="Zhang Chao">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/12/PyTorch%E7%9A%84GPU%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/fig1.png">
 
-<link rel="canonical" href="http://yoursite.com/archives/2020/04/">
+<link rel="canonical" href="http://yoursite.com/2020/04/12/PyTorch%E7%9A%84GPU%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
 
 
 <script id="page-configurations">
@@ -36,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | zclonely</title>
+  <title>Win10下PyTorch的GPU环境配置 | zclonely</title>
   
 
 
@@ -149,130 +156,132 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 5 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/PyTorch%E7%9A%84GPU%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Chao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zclonely">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Win10下PyTorch的GPU环境配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-12 23:41:54" itemprop="dateCreated datePublished" datetime="2020-04-12T23:41:54+08:00">2020-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-13 00:44:52" itemprop="dateModified" datetime="2020-04-13T00:44:52+08:00">2020-04-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%90%84%E7%B1%BB%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">各类环境配置</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">介绍Win10下PyTorch的CUDA，cuDNN环境配置流程，方便以后使用，从配置Python开始到PyTorch环境配置，看了这篇再也不用去网上搜索其他的了！ Yeah~~</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
+        <p>写在开头! 之前配置环境都需要选择对应的cuda版本和cuDNN版本，有可能以后Anaconda丰富了之后，可以直接一键配置，但是还是自己动手来的踏实，这里做个记录，方便以后配置</p>
+<h1 id="1-流程目录"><a href="#1-流程目录" class="headerlink" title="1.流程目录"></a>1.流程目录</h1><ul>
+<li><p><a href="#2.1">Anaconda配置Python环境</a></p>
+</li>
+<li><p><a href="#2.2">PyCharm community下载</a></p>
+</li>
+<li><p><a href="#2.3">Torch and TorchVision下载安装</a>  </p>
+</li>
+<li><p><a href="#2.4">CUDA下载配置</a></p>
+</li>
+<li><p><a href="#2.5">cuDNN下载配置</a></p>
+</li>
+<li><p><a href="#2.6">检查是否配置成功</a></p>
+</li>
+</ul>
+<h1 id="2-各子流程详解"><a href="#2-各子流程详解" class="headerlink" title="2.各子流程详解"></a>2.各子流程详解</h1><h2 id='2.1'>2.1.Anaconda配置Python环境</h2>
+<a href='https://www.anaconda.com/distribution/' target="_blank" rel="noopener">Anaconda官网下载链接</a>  
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>这个直接去官网下载就好了，Python要下载稳定的版本!<br><strong>安装时需要注意了! 下图箭头指向最好是打上 √ ，避免之后还需要再配置环境变量</strong></p>
+<p><img src='fig1.png'></img></p>
+<h2 id='2.2'>2.2.PyCharm community下载</h2>
+<a href=' https://www.jetbrains.com/pycharm/download/#section=windows'>Pycharm官网下载链接</a>   
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-12T23:41:54+08:00"
-              content="2020-04-12">
-          04-12
-        </time>
-      </div>
+<p>点击链接下载就好了，个人用户community就够了！</p>
+<h2 id='2.3'>2.3.Torch and TorchVision下载安装</h2>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/12/PyTorch%E7%9A%84GPU%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url">
-            <span itemprop="name">Win10下PyTorch的GPU环境配置</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-08T01:27:25+08:00"
-              content="2020-04-08">
-          04-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/08/%E6%8C%87%E5%AE%9A%E7%BD%91%E9%A1%B5%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87/" itemprop="url">
-            <span itemprop="name">指定网页爬取图片</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-07T01:55:19+08:00"
-              content="2020-04-07">
-          04-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/07/CSS%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" itemprop="url">
-            <span itemprop="name">CSS的常见问题</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-06T01:05:40+08:00"
-              content="2020-04-06">
-          04-06
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/06/LeetCode%E9%A2%98%E8%A7%A3/" itemprop="url">
-            <span itemprop="name">LeetCode题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-05T00:25:03+08:00"
-              content="2020-04-05">
-          04-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/05/%E4%BD%BF%E7%94%A8TorchVision%E5%BF%AB%E9%80%9F%E7%9A%84%E5%BC%80%E5%8F%91%E5%88%86%E7%B1%BB%E5%99%A8%E6%A8%A1%E5%9E%8B/" itemprop="url">
-            <span itemprop="name">使用TorchVision快速的开发分类器模型</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+<h3 id="2-3-1-简介"><a href="#2-3-1-简介" class="headerlink" title="2.3.1.简介"></a>2.3.1.简介</h3><p>一般说的PyTorch框架，一般指的就是Torch库，和TorchVision库，其中Torch库包含了torch的常用操作，TorchVision包含有  </p>
+<ul>
+<li>torchvision.datasets: 有常用的计算机视觉数据集，像MNIST,CIFAR等等，还有加载数据集的dataloader等常用的数据加载函数</li>
+<li>torchvision.models; 有常用的分类器模型，例如ResNet系列，VGG系列，Inception等等，因为有预训练的模型，修改一两行代码就可以很方便的对一些分类数据进行迁移训练，而且效果非常好！具体的使用方法可以看我这篇文章《使用TorchVision快速的开发分类器模型》</li>
+<li>torchvision.transforms: 常用的图像增强方式，例如随机切割，旋转，数据类型转换（Numpy，tensor，PIL.Image互转）</li>
+<li>torchvision.utils: 一些常用工具包</li>
+</ul>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/08/%E6%8C%87%E5%AE%9A%E7%BD%91%E9%A1%B5%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87/" rel="prev" title="指定网页爬取图片">
+      <i class="fa fa-chevron-left"></i> 指定网页爬取图片
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -325,6 +334,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-流程目录"><span class="nav-text">1.流程目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-各子流程详解"><span class="nav-text">2.各子流程详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2.1"><span class="nav-text">2.1.Anaconda配置Python环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2.2"><span class="nav-text">2.2.PyCharm community下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2.3"><span class="nav-text">2.3.Torch and TorchVision下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-简介"><span class="nav-text">2.3.1.简介</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
